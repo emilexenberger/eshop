@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Create a new item</title>
+</head>
+<body class="container my-2">
+<h1>Create a new item</h1>
+<form method="POST" th:action="@{/save-item}" th:object="${item}">
+  <label>Product name </label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />
+
+  <label>Product code </label> <input th:field="*{productCode}" type="number" class="form-control col-4" /><br />
+
+<!--  TODO Change type to "text" and add check if the entered text is double -->
+  <label>Price </label> <input th:field="*{price}" type="number" class="form-control col-4" /><br />
+
+  <label>Volume </label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
+
+  <button type="submit" class="btn btn-primary btn-sm bottom-button-spacing">Save item</button>
+</form>
+
+<a href="/" alt="Home" class="btn btn-primary btn-sm">Home</a>
+
+</body>
+</html>
