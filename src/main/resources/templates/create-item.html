@@ -16,8 +16,7 @@
 
   <label>Product code </label> <input th:field="*{productCode}" type="number" class="form-control col-4" /><br />
 
-<!--  TODO Change type to "text" and add check if the entered text is double -->
-  <label>Price </label> <input th:field="*{price}" type="number" class="form-control col-4" /><br />
+  <label>Price </label> <input th:field="*{price}" type="number" step="0.01" class="form-control col-4" /><br />
 
   <label>Volume </label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
 
