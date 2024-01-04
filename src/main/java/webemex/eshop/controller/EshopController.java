@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import webemex.eshop.model.Item;
 import webemex.eshop.service.ItemService;
@@ -33,8 +34,22 @@ public class EshopController {
     }
 
     @GetMapping("/eshop")
-    public String showItems(Model model) {
+    public String eshop(Model model) {
         model.addAttribute("allItems", itemService.findAllItems());
         return "eshop";
     }
+
+    @GetMapping("/admin-eshop")
+    public String adminEshop(Model model) {
+        model.addAttribute("allItems", itemService.findAllItems());
+        return "admin-eshop";
+    }
+
+    @GetMapping("/edit-item/{id}")
+    public String editItem(@PathVariable Long id, Model model) {
+        Item item = itemService.findItemById(id);
+        model.addAttribute("item", item);
+        return "edit-item";
+    }
+
 }

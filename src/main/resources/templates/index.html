@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Home</title>
 </head>
 
 <div layout:fragment="content">
     <h1>Welcome to e-shop!</h1>
-    <a href="/create-item" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Admin - create a new item</a><br />
-    <a href="/edit-item" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Admin - edit item</a><br />
-    <br>
-    <a href="/profile" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Profile</a><br />
-    <a href="/cart" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Cart</a><br />
+    <a href="/admin-eshop" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Admin - Eshop</a>
     <a href="/eshop" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Eshop</a>
+    <a href="/profile" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Profile</a>
+    <a href="/cart" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Cart</a>
 </div>
 
 </html>

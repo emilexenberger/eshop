@@ -2,10 +2,11 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main"
       xmlns:th="https://www.thymeleaf.org">
 <head>
-  <title>Eshop</title>
+  <title>Admin - Eshop</title>
 </head>
 
 <div layout:fragment="content">
+  <a href="/create-item" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Admin - create a new item</a><br />
   <table class="table table-bordered col-12">
     <thread>
       <tr>
@@ -24,7 +25,9 @@
       <td th:text="${item.volume}"></td>
       <td th:text="${item.price}"></td>
       <td>
-        <a th:href="@{/addToCart/{id}/{volume}(id=${id}, volume=${item.volume})}" class="btn btn-primary btn-sm">Add to cart</a>
+        <a th:href="@{/add-to-cart/{id}/{volume}(id=${item.id}, volume=${item.volume})}" class="btn btn-primary btn-sm">Add to cart</a>
+        <a th:href="@{/edit-item/{id}(id=${item.id})}" class="btn btn-primary btn-sm">Edit</a>
+        <a th:href="@{/remove-item/{id}(id=${item.id})}" class="btn btn-primary btn-sm">Remove</a>
       </td>
     </tr>
     </tbody>

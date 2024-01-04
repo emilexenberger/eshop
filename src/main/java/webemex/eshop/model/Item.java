@@ -14,14 +14,12 @@ public class Item {
     private double price;
     private int volume;
 
-    public Item() {
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Item(String productName, int productCode, double price, int volume) {
-        this.productName = productName;
-        this.productCode = productCode;
-        this.price = price;
-        this.volume = volume;
+    public Long getId() {
+        return id;
     }
 
     public String getProductName() {
