@@ -4,14 +4,10 @@
 <head>
   <title>Edit item</title>
 
-<!--  TODO: Resolve warning below and then remove <style>
+<!--  TODO: Resolve warning to make style.css work
+WARN 16396 --- [nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException:
 Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "styles.css"]
 -->
-  <style>
-        .bottom-button-spacing {
-            margin-bottom: 5px; /* Adjust the value to control the spacing */
-        }
-  </style>
 </head>
 
 <div layout:fragment="content">
@@ -27,7 +23,7 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
 
     <label>Volume </label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
 
-    <button type="submit" class="btn btn-primary btn-sm bottom-button-spacing">Save item</button>
+    <button type="submit" class="btn btn-primary btn-sm mb-1">Save item</button>
   </form>
 
   <a href="/" alt="Home" class="btn btn-primary btn-sm">Home</a>
