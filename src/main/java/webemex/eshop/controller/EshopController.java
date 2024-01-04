@@ -31,4 +31,10 @@ public class EshopController {
         itemService.saveItem(item);
         return "item-saved";
     }
+
+    @GetMapping("/eshop")
+    public String showItems(Model model) {
+        model.addAttribute("allItems", itemService.findAllItems());
+        return "eshop";
+    }
 }
