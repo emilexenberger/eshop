@@ -1,16 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-
     <title>Home</title>
 </head>
-<body class="container my-2">
+
+<div layout:fragment="content">
     <h1>Welcome to e-shop!</h1>
     <a href="/create-item" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Admin - create a new item</a><br />
     <a href="/edit-item" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Admin - edit item</a><br />
@@ -18,5 +12,6 @@
     <a href="/profile" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Profile</a><br />
     <a href="/cart" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Cart</a><br />
     <a href="/eshop" type="button" class="btn btn-primary btn-sm bottom-button-spacing">Eshop</a>
-</body>
+</div>
+
 </html>
