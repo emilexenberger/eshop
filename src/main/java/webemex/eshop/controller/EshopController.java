@@ -53,8 +53,7 @@ public class EshopController {
     }
 
     @GetMapping("/remove-item/{id}")
-    public String removeItem(@PathVariable Long id, Model model) {
+    public void removeItem(@PathVariable Long id, Model model) {
         itemService.deleteItemById(id);
-        return "item-removed";
     }
 }
