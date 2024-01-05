@@ -12,7 +12,7 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
 
 <div layout:fragment="content">
   <h1>Edit item</h1>
-  <form method="POST" th:action="@{/save-item}" th:object="${item}">
+  <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return handleSubmission()">
     <input th:field="*{id}" type="hidden" />
 
     <label>Product name </label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />
@@ -24,6 +24,11 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
     <label>Volume </label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
 
     <button type="submit" class="btn btn-primary btn-sm mb-1">Save item</button>
+    <script th:inline="javascript">
+      function handleSubmission() {
+        alert('Item successfully edited');
+      }
+    </script>
   </form>
 
   <a href="/" alt="Home" class="btn btn-primary btn-sm">Home</a>

@@ -30,7 +30,7 @@ public class EshopController {
     @PostMapping("/save-item")
     public String saveItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
-        return "item-saved";
+        return "redirect:/admin-eshop";
     }
 
     @GetMapping("/eshop")
