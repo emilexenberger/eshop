@@ -27,7 +27,7 @@ public class EshopController {
         return "create-item";
     }
 
-    @PostMapping("save-item")
+    @PostMapping("/save-item")
     public String saveItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
         return "item-saved";
@@ -52,4 +52,9 @@ public class EshopController {
         return "edit-item";
     }
 
+    @GetMapping("/remove-item/{id}")
+    public String removeItem(@PathVariable Long id, Model model) {
+        itemService.deleteItemById(id);
+        return "item-removed";
+    }
 }
