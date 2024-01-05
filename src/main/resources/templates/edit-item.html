@@ -3,6 +3,7 @@
       xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Edit item</title>
+  <script th:src="@{/js/alerts.js}" defer="defer"></script>
 
 <!--  TODO: Resolve warning to make style.css work
 WARN 16396 --- [nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException:
@@ -12,7 +13,7 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
 
 <div layout:fragment="content">
   <h1>Edit item</h1>
-  <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return handleSubmission()">
+  <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return alertItemEdited()">
     <input th:field="*{id}" type="hidden" />
 
     <label>Product name </label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />
@@ -24,11 +25,6 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
     <label>Volume </label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
 
     <button type="submit" class="btn btn-primary btn-sm mb-1">Save item</button>
-    <script th:inline="javascript">
-      function handleSubmission() {
-        alert('Item successfully edited');
-      }
-    </script>
   </form>
 
   <a href="/" alt="Home" class="btn btn-primary btn-sm">Home</a>

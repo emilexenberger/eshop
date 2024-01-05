@@ -3,6 +3,7 @@
       xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Admin - Eshop</title>
+  <script th:src="@{/js/remove-item.js}" defer="defer"></script>
 </head>
 
 <div layout:fragment="content">
@@ -27,27 +28,7 @@
       <td>
         <a th:href="@{/add-to-cart/{id}/{volume}(id=${item.id}, volume=${item.volume})}" class="btn btn-primary btn-sm">Add to cart</a>
         <a th:href="@{/edit-item/{id}(id=${item.id})}" class="btn btn-primary btn-sm">Edit</a>
-
         <a href="#" th:onclick="'removeItem(' + ${item.id} + ');'" class="btn btn-primary btn-sm">Remove</a>
-        <script th:inline="javascript">
-          function removeItem(itemId) {
-            var confirmation = confirm("Are you sure you want to remove this item?");
-
-            if (confirmation) {
-              var removeUrl = '/remove-item/' + itemId;
-
-              var xhr = new XMLHttpRequest();
-              xhr.open('GET', removeUrl, true);
-              xhr.onload = function () {
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
-              };
-              xhr.send();
-            }
-          }
-        </script>
-
       </td>
     </tr>
     </tbody>
