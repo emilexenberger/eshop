@@ -7,7 +7,13 @@
 </head>
 
 <div layout:fragment="content">
-  <a href="/create-item" type="button" class="btn btn-primary btn-sm mb-1">Admin - create a new item</a><br />
+  <div class="d-flex flex-row">
+    <a href="/create-item" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - create a new item</a>
+    <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
+    </form>
+  </div>
   <table class="table table-bordered col-12">
     <thread>
       <tr>
@@ -26,15 +32,12 @@
       <td th:text="${item.volume}"></td>
       <td th:text="${item.price}"></td>
       <td>
-        <a th:href="@{/add-to-cart/{id}/{volume}(id=${item.id}, volume=${item.volume})}" class="btn btn-primary btn-sm">Add to cart</a>
         <a th:href="@{/edit-item/{id}(id=${item.id})}" class="btn btn-primary btn-sm">Edit</a>
         <a href="#" th:onclick="'removeItem(' + ${item.id} + ');'" class="btn btn-primary btn-sm">Remove</a>
       </td>
     </tr>
     </tbody>
   </table>
-
-  <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1">Home</a>
 </div>
 
 </html>

@@ -6,6 +6,13 @@
 </head>
 
 <div layout:fragment="content">
+  <div class="d-flex flex-row">
+    <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
+    </form>
+  </div>
+
   <table class="table table-bordered col-12">
     <thread>
       <tr>
@@ -29,8 +36,6 @@
     </tr>
     </tbody>
   </table>
-
-  <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1">Home</a>
 </div>
 
 </html>

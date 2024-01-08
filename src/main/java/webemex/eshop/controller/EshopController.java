@@ -35,7 +35,7 @@ public class EshopController {
     @PostMapping("/save-item")
     public String saveItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
-        return "redirect:/admin-eshop";
+        return "redirect:/admin-edit-database";
     }
 
     @GetMapping("/eshop")
@@ -44,10 +44,10 @@ public class EshopController {
         return "eshop";
     }
 
-    @GetMapping("/admin-eshop")
+    @GetMapping("/admin-edit-database")
     public String adminEshop(Model model) {
         model.addAttribute("allItems", itemService.findAllItems());
-        return "admin-eshop";
+        return "admin-edit-database";
     }
 
     @GetMapping("/edit-item/{id}")
