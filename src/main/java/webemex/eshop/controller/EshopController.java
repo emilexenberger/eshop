@@ -20,6 +20,11 @@ public class EshopController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping("/create-item")
     public String createItem(Model model) {
         Item item = new Item();
@@ -53,7 +58,7 @@ public class EshopController {
     }
 
     @GetMapping("/remove-item/{id}")
-    public void removeItem(@PathVariable Long id, Model model) {
+    public void removeItem(@PathVariable Long id) {
         itemService.deleteItemById(id);
     }
 }

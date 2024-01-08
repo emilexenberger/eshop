@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+</head>
+
+<div layout:fragment="content">
+  <div th:if="${param.error}">
+    Invalid username and password.
+  </div>
+
+  <div th:if="${param.logout}">
+    You have been logged out and will be redirected to the main site.
+    <script>
+        // Presmeruje na hlavnu stranku po 3-och sekundach
+        window.onload = setTimeout(function() {
+                window.location.href = "/";
+            }, 3000); // 3000 milisekúnd (3 sekúnd)
+    </script>
+  </div>
+
+  <form th:action="@{/login}" method="post">
+    <div><label> User Name : <input type="text" name="username" class="form-control col-12"/> </label></div>
+    <div><label> Password: <input type="password" name="password" class="form-control col-12"/> </label></div>
+    <div><input type="submit" value="Sign In" class="btn btn-info col-2" /></div>
+  </form>
+</div>
+
+</html>

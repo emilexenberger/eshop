@@ -9,8 +9,11 @@ import java.util.List;
 
 @Service
 public class ItemService {
-    @Autowired
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     public void saveItem(Item item) {
         itemRepository.save(item);

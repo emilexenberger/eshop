@@ -1,9 +1,8 @@
 package webemex.eshop.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "item") // not necessary if the name of the table is the same as class name but lowercase
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
