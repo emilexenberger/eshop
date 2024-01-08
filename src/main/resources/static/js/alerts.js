@@ -5,3 +5,7 @@ function alertItemCreated() {
 function alertItemEdited() {
     alert('Item successfully edited');
 }
+
+function alertUserCreated() {
+    alert('User successfully created');
+}

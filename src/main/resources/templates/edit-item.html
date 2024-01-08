@@ -13,6 +13,7 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
 
 <div layout:fragment="content">
   <h1>Edit item</h1>
+
   <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return alertItemEdited()">
     <input th:field="*{id}" type="hidden" />
 

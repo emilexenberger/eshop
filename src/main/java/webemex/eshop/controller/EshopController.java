@@ -7,13 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import webemex.eshop.model.AppUser;
 import webemex.eshop.model.Item;
+import webemex.eshop.service.AppUserService;
 import webemex.eshop.service.ItemService;
 
 @Controller
 public class EshopController {
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    AppUserService appUserService;
 
     @GetMapping("/")
     public String index() {
@@ -23,6 +28,19 @@ public class EshopController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/create-account")
+    public String createAccount(Model model) {
+        AppUser appUser = new AppUser();
+        model.addAttribute("appUser", appUser);
+        return "create-account";
+    }
+
+    @PostMapping("/save-user")
+    public String saveAppUser(@ModelAttribute("appUser") AppUser appUser) {
+        appUserService.saveAppUser(appUser);
+        return "redirect:/login";
     }
 
     @GetMapping("/create-item")

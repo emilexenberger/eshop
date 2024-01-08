@@ -1,5 +1,7 @@
 package webemex.eshop.model;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,11 +9,21 @@ import javax.persistence.*;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String username;
     private String password;
     private String name;
     private String surname;
+
+    public static String hashPassword(String password) {
+        String salt = BCrypt.gensalt(12);
+        String hashedPassword = BCrypt.hashpw(password, salt);
+        return hashedPassword;
+    }
+    public void setPassword(String password) {
+        this.password = hashPassword(password);
+    }
 
     public Long getId() {
         return id;
@@ -31,10 +43,6 @@ public class AppUser {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {

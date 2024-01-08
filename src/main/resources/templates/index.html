@@ -7,6 +7,7 @@
 
 <div layout:fragment="content">
     <h1>Welcome to e-shop!</h1>
+
     <div class="d-flex flex-row">
         <a href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
         <a href="/eshop" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a>
@@ -16,6 +17,9 @@
 <!--        <div th:if="${#authentication.isAuthenticated()}">-->
             <a href="/login" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Log In</a>
 <!--        </div>-->
+
+        <a href="/create-account" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Create a new account</a>
+
 
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>

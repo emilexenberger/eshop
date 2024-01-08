@@ -8,14 +8,15 @@
 
 <div layout:fragment="content">
   <h1>Create a new item</h1>
+
   <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return alertItemCreated()">
-    <label>Product name </label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />
+    <label>Product name</label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />
 
-    <label>Product code </label> <input th:field="*{productCode}" type="number" class="form-control col-4" /><br />
+    <label>Product code</label> <input th:field="*{productCode}" type="number" class="form-control col-4" /><br />
 
-    <label>Price </label> <input th:field="*{price}" type="number" step="0.01" class="form-control col-4" /><br />
+    <label>Price</label> <input th:field="*{price}" type="number" step="0.01" class="form-control col-4" /><br />
 
-    <label>Volume </label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
+    <label>Volume</label> <input th:field="*{volume}" type="number" class="form-control col-4" /><br />
 
     <button type="submit" class="btn btn-primary btn-sm mb-1">Save item</button>
   </form>
