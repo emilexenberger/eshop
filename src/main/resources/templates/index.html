@@ -6,7 +6,7 @@
 </head>
 
 <div layout:fragment="content">
-    <h1>Welcome to e-shop!</h1>
+    <h1>Welcome<span th:if="${userLogged}" th:text="', ' + ${appUser.name}"></span>!</h1>
 
     <div class="d-flex flex-row">
         <a th:if="${roleAdmin}" href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>

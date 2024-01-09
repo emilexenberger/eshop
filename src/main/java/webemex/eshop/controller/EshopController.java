@@ -24,6 +24,9 @@ public class EshopController {
     @GetMapping("/")
     public String index(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
+        if (appUser != null) {
+            model.addAttribute("appUser", appUser);
+        }
         model.addAttribute("userLogged", appUser != null);
         model.addAttribute("roleAdmin", appUser != null && appUser.getRole().equals("ROLE_ADMIN"));
         return "index";
