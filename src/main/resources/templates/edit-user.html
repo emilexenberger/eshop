@@ -3,6 +3,7 @@
       xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Edit profile</title>
+  <script th:src="@{/js/alerts.js}" defer="defer"></script>
 
 <!--  TODO: Resolve warning to make style.css work
 WARN 16396 --- [nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException:
@@ -13,18 +14,18 @@ Failed to convert value of type 'java.lang.String' to required type 'java.lang.L
 <div layout:fragment="content">
   <h1>Edit profile</h1>
 
-  <form method="POST" th:action="@{/save-user}" th:object="${appUser}" onsubmit="return checkPasswords()">
+  <form method="POST" th:action="@{/save-user}" th:object="${appUser}" onsubmit="return alertUserEdited()">
     <input th:field="*{id}" type="hidden" />
     <label>Username</label> <input th:field="*{username}" type="text" class="form-control col-4" /><br />
     <label>Name</label> <input th:field="*{name}" type="text" class="form-control col-4" /><br />
     <label>Surname</label> <input th:field="*{surname}" type="text" class="form-control col-4" /><br />
 
     <label>Password</label> <input name="password" th:field="*{password}" type="password" class="form-control col-4" />
-    <p th:if="${passwordEmpty}" class="text-danger">Password can not be empty.</p>
+    <p th:if="${passwordEmpty}" class="text-danger">Password can not be empty</p>
     <br th:unless="${passwordEmpty}" />
 
     <label>Confirm Password</label> <input name="confirmPassword" type="password" class="form-control col-4" />
-    <p th:if="${passwordsMismatch}" class="text-danger">Passwords do not match.</p>
+    <p th:if="${passwordsMismatch}" class="text-danger">Passwords do not match</p>
     <br th:unless="${passwordsMismatch}" />
 
     <button type="submit" class="btn btn-primary btn-sm mb-1 mt-1">Save item</button>

@@ -9,3 +9,7 @@ function alertItemEdited() {
 function alertUserCreated() {
     alert('User successfully created');
 }
+
+function alertUserEdited() {
+    alert('Profile successfully edited');
+}
