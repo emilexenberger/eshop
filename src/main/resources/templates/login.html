@@ -11,7 +11,7 @@
   </div>
 
   <div th:if="${param.logout}">
-    <h1>Log out</h1>
+    <h1>Logged out</h1>
 
     You have been logged out and will be redirected to the main site.
     <script>
@@ -27,7 +27,7 @@
     <form th:action="@{/login}" method="post">
       <div><label> User Name : <input type="text" name="username" class="form-control col-12"/> </label></div>
       <div><label> Password: <input type="password" name="password" class="form-control col-12"/> </label></div>
-      <div><input type="submit" value="Sign In" class="btn btn-primary btn-sm mb-1" /></div>
+      <div><input type="submit" value="Log In" class="btn btn-primary btn-sm mb-1" /></div>
     </form>
   </div>
 

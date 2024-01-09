@@ -9,7 +9,7 @@
     <h1>Welcome to e-shop!</h1>
 
     <div class="d-flex flex-row">
-        <a th:if="${userAdmin}" href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
+        <a th:if="${roleAdmin}" href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
         <a th:if="${userLogged}" href="/eshop" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a>
         <a th:if="${userLogged}" href="/user" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Profile</a>
         <br />

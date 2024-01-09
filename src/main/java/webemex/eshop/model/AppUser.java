@@ -15,6 +15,7 @@ public class AppUser {
     private String password;
     private String name;
     private String surname;
+    private String role = "ROLE_USER";
 
     public static String hashPassword(String password) {
         String salt = BCrypt.gensalt(12);
@@ -23,6 +24,10 @@ public class AppUser {
     }
     public void setPassword(String password) {
         this.password = hashPassword(password);
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Long getId() {
@@ -41,10 +46,6 @@ public class AppUser {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getName() {
         return name;
     }
@@ -59,6 +60,14 @@ public class AppUser {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

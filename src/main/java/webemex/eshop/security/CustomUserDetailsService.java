@@ -21,8 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (appUser == null) {
             throw new UsernameNotFoundException(username);
         }
-        UserDetails user = User.withUsername(appUser.getUsername()).password(appUser.getPassword()).authorities("USER").build();
-
+        UserDetails user = User.withUsername(appUser.getUsername())
+                               .password(appUser.getPassword())
+                               .authorities(appUser.getRole())
+                               .build();
         return user;
     }
 }

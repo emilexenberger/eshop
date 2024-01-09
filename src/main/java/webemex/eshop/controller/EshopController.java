@@ -25,7 +25,7 @@ public class EshopController {
     public String index(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
         model.addAttribute("userLogged", appUser != null);
-        model.addAttribute("userAdmin", appUser != null && appUser.getUsername().equals("admin"));
+        model.addAttribute("roleAdmin", appUser != null && appUser.getRole().equals("ROLE_ADMIN"));
         return "index";
     }
 
