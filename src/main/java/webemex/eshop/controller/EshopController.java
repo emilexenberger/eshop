@@ -22,7 +22,10 @@ public class EshopController {
     AppUserService appUserService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        AppUser appUser = appUserService.getAuthenticatedUser();
+        model.addAttribute("userLogged", appUser != null);
+        model.addAttribute("userAdmin", appUser != null && appUser.getUsername().equals("admin"));
         return "index";
     }
 
