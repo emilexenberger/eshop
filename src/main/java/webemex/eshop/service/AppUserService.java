@@ -5,7 +5,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import webemex.eshop.model.AppUser;
+import webemex.eshop.model.Item;
 import webemex.eshop.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 public class AppUserService {
@@ -21,5 +24,9 @@ public class AppUserService {
         String username = auth.getName();
         AppUser appUser = userRepository.findByUsername(username);
         return appUser;
+    }
+
+    public List<AppUser> findAllUsers() {
+        return userRepository.findAll();
     }
 }

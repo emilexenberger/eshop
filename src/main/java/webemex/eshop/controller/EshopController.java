@@ -11,6 +11,8 @@ import webemex.eshop.model.Item;
 import webemex.eshop.service.AppUserService;
 import webemex.eshop.service.ItemService;
 
+import java.util.ArrayList;
+
 @Controller
 public class EshopController {
     @Autowired
@@ -37,28 +39,64 @@ public class EshopController {
         return "create-user";
     }
 
-    @PostMapping("/save-user")
-    public String saveAppUser(@ModelAttribute("appUser") AppUser appUser,
+    @PostMapping("/save-created-user")
+    public String saveCreatedAppUser(@ModelAttribute("appUser") AppUser appUser,
                               @RequestParam String password,
                               @RequestParam String confirmPassword,
                               Model model
                               ) {
+        for (AppUser appUserDB : appUserService.findAllUsers()) {
+            if (appUser.getUsername().equals(appUserDB.getUsername())) {
+                model.addAttribute("appUser", appUser);
+                model.addAttribute("userExists", true);
+                return "/create-user";
+            }
+        }
 
         if (password.equals("")) {
-            boolean passwordEmpty = true;
             model.addAttribute("appUser", appUser);
-            model.addAttribute("passwordEmpty", passwordEmpty);
+            model.addAttribute("passwordEmpty", true);
+            return "/create-user";
+        } else if (!password.equals(confirmPassword)) {
+            model.addAttribute("appUser", appUser);
+            model.addAttribute("passwordsMismatch", true);
+            return "/create-user";
+        }
+
+        appUserService.saveAppUser(appUser);
+        return "redirect:/user-created";
+    }
+
+    @GetMapping("/user-created")
+    public String showUserCreated() {
+        return "user-created";
+    }
+
+    @PostMapping("/save-edited-user")
+    public String saveEditedAppUser(@ModelAttribute("appUser") AppUser appUser,
+                              @RequestParam String password,
+                              @RequestParam String confirmPassword,
+                              Model model
+    ) {
+        if (password.equals("")) {
+            model.addAttribute("appUser", appUser);
+            model.addAttribute("passwordEmpty", true);
             return "/edit-user";
         } else if (!password.equals(confirmPassword)) {
-            boolean passwordsMismatch = true;
             model.addAttribute("appUser", appUser);
-            model.addAttribute("passwordsMismatch", passwordsMismatch);
+            model.addAttribute("passwordsMismatch", true);
             return "/edit-user";
         }
 
         appUserService.saveAppUser(appUser);
-        return "redirect:/login";
+        return "redirect:/user-edited";
     }
+
+    @GetMapping("/user-edited")
+    public String showUserEdited() {
+        return "user-edited";
+    }
+
 
     @GetMapping("/user")
     public String getUser(Model model) {
