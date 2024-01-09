@@ -60,4 +60,15 @@ public class AppUser {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

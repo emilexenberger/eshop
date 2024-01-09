@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+</head>
+
+<div layout:fragment="content">
+    <div th:if="${appUser != null}">
+        <h1>Welcome, <span th:text="*{appUser.name}"></span>!</h1>
+    </div>
+
+    <div class="d-flex flex-row">
+        <a th:href="@{/edit-user}" class="btn btn-primary btn-sm mb-1 mr-1">Edit profile</a>
+        <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
+        </form>
+    </div>
+
+    <table class="table col-4 table-borderless">
+        <tbody>
+        <tr>
+            <td class="text-right"><b>Username:</b></td>
+            <td class="text-left" th:text="${appUser.username}"></td>
+        </tr>
+        <tr>
+            <td class="text-right"><b>Name:</b></td>
+            <td class="text-left" th:text="${appUser.name}"></td>
+        </tr>
+        <tr>
+            <td class="text-right"><b>Surname:</b></td>
+            <td class="text-left" th:text="${appUser.surname}"></td> <!-- Pozor na veľké písmeno v ${appUser.Surname}, malo by to byť ${appUser.surname} -->
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</html>

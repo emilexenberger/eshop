@@ -11,15 +11,11 @@
     <div class="d-flex flex-row">
         <a href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
         <a href="/eshop" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a>
-        <a href="/profile" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Profile</a>
+        <a href="/user" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Profile</a>
         <br />
 
-<!--        <div th:if="${#authentication.isAuthenticated()}">-->
-            <a href="/login" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Log In</a>
-<!--        </div>-->
-
-        <a href="/create-account" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Create a new account</a>
-
+        <a href="/login" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Log In</a>
+        <a href="/create-user" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Create a new account</a>
 
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
