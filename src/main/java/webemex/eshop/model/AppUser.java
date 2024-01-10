@@ -3,6 +3,7 @@ package webemex.eshop.model;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "app_user")
@@ -16,6 +17,12 @@ public class AppUser {
     private String name;
     private String surname;
     private String role = "ROLE_USER";
+
+    @OneToMany(
+            mappedBy="appUser", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private List<CartItem> cartItems;
 
     public static String hashPassword(String password) {
         String salt = BCrypt.gensalt(12);

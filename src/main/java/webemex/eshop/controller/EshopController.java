@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import webemex.eshop.model.AppUser;
+import webemex.eshop.model.CartItem;
 import webemex.eshop.model.Item;
+import webemex.eshop.repository.CartItemRepository;
 import webemex.eshop.service.AppUserService;
+import webemex.eshop.service.CartItemService;
 import webemex.eshop.service.ItemService;
 
 import java.util.ArrayList;
@@ -20,6 +23,9 @@ public class EshopController {
 
     @Autowired
     AppUserService appUserService;
+
+    @Autowired
+    CartItemService cartItemService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -132,16 +138,16 @@ public class EshopController {
         return "redirect:/admin-edit-database";
     }
 
-    @GetMapping("/edit-item/{id}")
-    public String editItem(@PathVariable Long id, Model model) {
-        Item item = itemService.findItemById(id);
+    @GetMapping("/edit-item/{idItem}")
+    public String editItem(@PathVariable Long idItem, Model model) {
+        Item item = itemService.findItemById(idItem);
         model.addAttribute("item", item);
         return "edit-item";
     }
 
-    @GetMapping("/remove-item/{id}")
-    public void removeItem(@PathVariable Long id) {
-        itemService.deleteItemById(id);
+    @GetMapping("/remove-item/{idItem}")
+    public void removeItem(@PathVariable Long idItem) {
+        itemService.deleteItemById(idItem);
     }
 
 //    Eshop
@@ -149,6 +155,22 @@ public class EshopController {
     public String eshop(Model model) {
         model.addAttribute("allItems", itemService.findAllItems());
         return "eshop";
+    }
+
+    @PostMapping("/addToCart/{idItem}")
+    public String addToCard(@PathVariable Long idItem, @RequestParam("enteredVolume") int enteredVolume) {
+        AppUser appUser = appUserService.getAuthenticatedUser();
+
+        Item item = itemService.findItemById(idItem);
+        item.setVolume(item.getVolume() - enteredVolume);
+
+        CartItem cartItem = new CartItem();
+        cartItem.setAppUser(appUser);
+        cartItem.setItem(item);
+        cartItem.setVolume(enteredVolume);
+
+        cartItemService.saveItem(cartItem);
+        return "redirect:/eshop";
     }
 
 //    Admin - edit database

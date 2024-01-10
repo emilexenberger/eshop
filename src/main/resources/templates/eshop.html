@@ -27,13 +27,16 @@
     </thread>
 
     <tbody>
-    <tr th:each="item:${allItems}">
+    <tr th:each="item:${allItems}" th:if="${item.volume > 0}">
       <td th:text="${item.productCode}"></td>
       <td th:text="${item.productName}"></td>
       <td th:text="${item.volume}"></td>
       <td th:text="${item.price}"></td>
       <td>
-        <a th:href="@{/addToCart/{id}/{volume}(id=${id}, volume=${item.volume})}" class="btn btn-primary btn-sm">Add to cart</a>
+        <form th:action="@{/addToCart/{idItem}(idItem=${item.id})}" method="post" class="d-flex">
+          <input name="enteredVolume" type="number" class="form-control col-2 mr-3" th:value="${(enteredVolume == null) ? 1 : enteredVolume}"/>
+          <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+        </form>
       </td>
     </tr>
     </tbody>

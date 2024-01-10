@@ -1,6 +1,7 @@
 package webemex.eshop.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -12,6 +13,12 @@ public class Item {
     private int productCode;
     private double price;
     private int volume;
+
+    @OneToMany(
+            mappedBy="item", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private List<CartItem> cartItems;
 
     public void setId(Long id) {
         this.id = id;
