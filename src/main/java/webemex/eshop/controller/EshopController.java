@@ -162,16 +162,38 @@ public class EshopController {
 
     @PostMapping("/addToCart/{idItem}")
     public String addToCard(@PathVariable Long idItem, @RequestParam("enteredVolume") int enteredVolume) {
-        AppUser appUser = appUserService.getAuthenticatedUser();
+//        Create empty cartItem
+        CartItem cartItem = new CartItem();
 
+//        Assign appUser to cartItem
+        AppUser appUser = appUserService.getAuthenticatedUser();
+        cartItem.setAppUser(appUser);
+
+//        Subtract volume of item from inventory and assign item to cartItem
         Item item = itemService.findItemById(idItem);
         item.setVolume(item.getVolume() - enteredVolume);
-
-        CartItem cartItem = new CartItem();
-        cartItem.setAppUser(appUser);
         cartItem.setItem(item);
-        cartItem.setVolume(enteredVolume);
 
+//        Get list of all userCartItems
+        List<CartItem> allCartItems = cartItemService.findAllCartItems();
+        List<CartItem> userCartItems = new ArrayList<>();
+        for (CartItem existingCartItem : allCartItems) {
+            if (existingCartItem.getAppUser() == appUser) {
+                userCartItems.add(existingCartItem);
+            }
+        }
+
+//        If the item already is in the cart, just add up to entered volume, otherwise create a new entry for CartItem table in the database
+        for (CartItem existingUserCartItem : userCartItems) {
+            if (existingUserCartItem.getItem() == item) {
+                System.out.println("Existuje zaznam s tymto itemom pre tohto pouzivatela");
+                System.out.println("ID zaznamu v cart_item tabulke je: " + existingUserCartItem.getId());
+                existingUserCartItem.setVolume(existingUserCartItem.getVolume() + enteredVolume);
+                cartItemService.saveItem(existingUserCartItem);
+                return "redirect:/eshop";
+            }
+        }
+        cartItem.setVolume(enteredVolume);
         cartItemService.saveItem(cartItem);
         return "redirect:/eshop";
     }
@@ -188,14 +210,19 @@ public class EshopController {
             }
         }
 
-        Map<Item, Integer> aggregatedUserCartItems = userCartItems.stream()
-                .collect(Collectors.groupingBy(
-                        CartItem::getItem,
-                        Collectors.summingInt(CartItem::getVolume)
-                ));
-
-        model.addAttribute("aggregatedUserCartItems" , aggregatedUserCartItems);
+        model.addAttribute("userCartItems" , userCartItems);
         return "cart";
+    }
+
+    @PostMapping("/editCart/{idCartItem}")
+    public String editCartItem(@PathVariable Long idCartItem, @RequestParam("enteredVolume") int enteredVolume) {
+        CartItem cartItem = cartItemService.findItemById(idCartItem);
+        cartItem.setVolume(enteredVolume);
+        cartItemService.saveItem(cartItem);
+
+//        TODO Zohlad zmenu vo volumes aj v tabulke item
+
+        return "redirect:/cart";
     }
 
 //    Admin - edit database

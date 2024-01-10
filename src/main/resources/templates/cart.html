@@ -28,16 +28,17 @@
     </thread>
 
     <tbody>
-    <tr th:each="aggregatedUserCartItem : ${aggregatedUserCartItems.entrySet()}">
-      <td th:text="${aggregatedUserCartItem.key.productCode}"></td>
-      <td th:text="${aggregatedUserCartItem.key.productName}"></td>
-      <td th:text="${aggregatedUserCartItem.value}"></td>
-      <td th:text="${aggregatedUserCartItem.key.price}"></td>
-      <td>Delete
-<!--        <form th:action="@{/addToCart/{idItem}(idItem=${item.id})}" method="post" class="d-flex">-->
-<!--          <input name="enteredVolume" type="number" class="form-control col-2 mr-3" th:value="${(enteredVolume == null) ? 1 : enteredVolume}"/>-->
-<!--          <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>-->
-<!--        </form>-->
+    <tr th:each="userCartItem : ${userCartItems}">
+      <td th:text="${userCartItem.item.productCode}"></td>
+      <td th:text="${userCartItem.item.productName}"></td>
+      <td th:text="${userCartItem.volume}"></td>
+      <td th:text="${userCartItem.item.price}"></td>
+      <td>
+        <form th:action="@{/editCart/{idCartItem}(idCartItem=${userCartItem.id})}" method="post" class="d-flex">
+<!--          TODO Nastav, aby sa dala nastavit iba taka maximalna hodnota, kolko produktov je dokopy v tabulkach cart_item a item. Alebo uplne odstran Volume z tabulky item -->
+          <input name="enteredVolume" type="number" min="1" step="1" value="1" class="form-control col-2 mr-3"/>
+          <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+        </form>
       </td>
     </tr>
     </tbody>
