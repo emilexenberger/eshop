@@ -10,6 +10,7 @@
 
   <div class="d-flex flex-row">
     <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
+    <a href="/cart" alt="Cart" class="btn btn-primary btn-sm mb-1 mr-1">Cart</a><br />
     <form th:action="@{/logout}" method="post">
       <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
     </form>
@@ -34,7 +35,7 @@
       <td th:text="${item.price}"></td>
       <td>
         <form th:action="@{/addToCart/{idItem}(idItem=${item.id})}" method="post" class="d-flex">
-          <input name="enteredVolume" type="number" class="form-control col-2 mr-3" th:value="${(enteredVolume == null) ? 1 : enteredVolume}"/>
+          <input name="enteredVolume" type="number" min="1" step="1" value="1" class="form-control col-2 mr-3"/>
           <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
         </form>
       </td>

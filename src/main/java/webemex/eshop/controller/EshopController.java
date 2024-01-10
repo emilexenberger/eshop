@@ -15,6 +15,9 @@ import webemex.eshop.service.CartItemService;
 import webemex.eshop.service.ItemService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class EshopController {
@@ -171,6 +174,28 @@ public class EshopController {
 
         cartItemService.saveItem(cartItem);
         return "redirect:/eshop";
+    }
+
+    @GetMapping("/cart")
+    public String showCart(Model model) {
+        AppUser appUser = appUserService.getAuthenticatedUser();
+
+        List<CartItem> allCartItems = cartItemService.findAllCartItems();
+        List<CartItem> userCartItems = new ArrayList<>();
+        for (CartItem cartItem : allCartItems) {
+            if (cartItem.getAppUser() == appUser) {
+                userCartItems.add(cartItem);
+            }
+        }
+
+        Map<Item, Integer> aggregatedUserCartItems = userCartItems.stream()
+                .collect(Collectors.groupingBy(
+                        CartItem::getItem,
+                        Collectors.summingInt(CartItem::getVolume)
+                ));
+
+        model.addAttribute("aggregatedUserCartItems" , aggregatedUserCartItems);
+        return "cart";
     }
 
 //    Admin - edit database
