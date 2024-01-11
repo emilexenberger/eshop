@@ -202,6 +202,7 @@ public class EshopController {
     public String showCart(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
 
+//        Find all user cart items
         List<CartItem> allCartItems = cartItemService.findAllCartItems();
         List<CartItem> userCartItems = new ArrayList<>();
         for (CartItem cartItem : allCartItems) {
@@ -216,11 +217,20 @@ public class EshopController {
 
     @PostMapping("/editCart/{idCartItem}")
     public String editCartItem(@PathVariable Long idCartItem, @RequestParam("enteredVolume") int enteredVolume) {
+//        Change volume in the table cart_item
         CartItem cartItem = cartItemService.findItemById(idCartItem);
+        int itemDiff = cartItem.getVolume() - enteredVolume;
         cartItem.setVolume(enteredVolume);
         cartItemService.saveItem(cartItem);
 
-//        TODO Zohlad zmenu vo volumes aj v tabulke item
+//        Consider the change in volumes and in the table item
+        List<Item> allItems = itemService.findAllItems();
+        for (Item item : allItems) {
+            if (item == cartItem.getItem()) {
+                item.setVolume(item.getVolume() + itemDiff);
+                itemService.saveItem(item);
+            }
+        }
 
         return "redirect:/cart";
     }

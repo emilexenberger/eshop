@@ -34,9 +34,8 @@
       <td th:text="${userCartItem.volume}"></td>
       <td th:text="${userCartItem.item.price}"></td>
       <td>
-        <form th:action="@{/editCart/{idCartItem}(idCartItem=${userCartItem.id})}" method="post" class="d-flex">
-<!--          TODO Nastav, aby sa dala nastavit iba taka maximalna hodnota, kolko produktov je dokopy v tabulkach cart_item a item. Alebo uplne odstran Volume z tabulky item -->
-          <input name="enteredVolume" type="number" min="1" step="1" value="1" class="form-control col-2 mr-3"/>
+        <form th:action="@{/editCart/{idCartItem}(idCartItem=${userCartItem.id})}" th:object="${userCartItem}" method="post" class="d-flex">
+          <input name="enteredVolume" type="number" min="1" step="1" th:max="${userCartItem.volume + userCartItem.item.volume}" th:value="${userCartItem.volume}" class="form-control col-3 mr-3"/>
           <button type="submit" class="btn btn-primary btn-sm">Apply</button>
         </form>
       </td>
