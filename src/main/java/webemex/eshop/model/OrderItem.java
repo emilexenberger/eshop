@@ -11,8 +11,6 @@ public class OrderItem {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private LocalDateTime dateTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private AppUser appUser;
@@ -21,13 +19,16 @@ public class OrderItem {
     @JoinColumn(name = "id_item")
     private Item item;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_order")
+    private Order order;
+
     private int volume;
 
     public OrderItem() {
     }
 
-    public OrderItem(CartItem cartItem, LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public OrderItem(CartItem cartItem) {
         this.appUser = cartItem.getAppUser();
         this.item = cartItem.getItem();
         this.volume = cartItem.getVolume();
@@ -39,14 +40,6 @@ public class OrderItem {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     public AppUser getAppUser() {
@@ -71,6 +64,14 @@ public class OrderItem {
 
     public void setVolume(int volume) {
         this.volume = volume;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
 

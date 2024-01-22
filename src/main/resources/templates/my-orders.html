@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>My orders</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+
+<div layout:fragment="content">
+  <h1>My orders</h1>
+
+  <div class="d-flex flex-row">
+    <a href="/" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
+    <a href="/eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
+    </form>
+  </div>
+
+  <table class="table col-1 table-borderless">
+    <tbody>
+    <tr>
+      <td class="text-right"><b>Name:</b></td>
+      <td class="text-left" th:text="${appUser.name}"></td>
+    </tr>
+    <tr>
+      <td class="text-right"><b>Surname:</b></td>
+      <td class="text-left" th:text="${appUser.surname}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table class="table col-12">
+    <thread>
+      <tr>
+        <th class="text-center">Order id</th>
+        <th class="text-center">Order time</th>
+        <th class="text-center">Total price</th>
+        <th>Actions</th>
+      </tr>
+    </thread>
+
+    <tbody>
+    <tr th:each="userOrder : ${userOrders}">
+      <td th:text="${userOrder.id}" class="align-middle text-center"></td>
+      <td th:text="${#temporals.format(userOrder.dateTime, 'yyyy-MM-dd HH:mm:ss')}" class="align-middle text-center"></td>
+      <td th:text="${userOrder.totalPrice}" class="align-middle text-center"></td>
+
+      <td class="align-middle">
+        <a th:href="@{/openOrder/{idUserOrder}(idUserOrder=${userOrder.id})}" class="btn btn-primary btn-sm">Open order</a>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</html>

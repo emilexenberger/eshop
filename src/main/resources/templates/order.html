@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/main"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Order summary</title>
+</head>
+
+<div layout:fragment="content">
+  <h1>Order details</h1>
+
+  <div class="d-flex flex-row">
+    <a href="/" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
+    <a href="/my-orders" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">My orders</a>
+    <a href="/eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
+    </form>
+  </div>
+
+  <table class="table col-4 table-borderless">
+    <tbody>
+    <tr>
+      <td class="text-right"><b>Order number:</b></td>
+      <td class="text-left" th:text="${order.id}"></td>
+    </tr>
+    <tr>
+      <td class="text-right"><b>Order date:</b></td>
+      <td class="text-left" th:text="${order.dateTime}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table class="table col-12">
+    <thread>
+      <tr>
+        <th class="text-center">Product code</th>
+        <th>Product name</th>
+        <th class="text-center">Volume</th>
+        <th class="text-right">Unit price</th>
+        <th class="text-right">Total price</th>
+      </tr>
+    </thread>
+
+    <tbody>
+    <tr th:each="orderItem : ${order.orderItems}">
+      <td th:text="${orderItem.item.productCode}" class="align-middle text-center"></td>
+      <td th:text="${orderItem.item.productName}" class="align-middle"></td>
+      <td th:text="${orderItem.volume}" class="align-middle text-center"></td>
+      <td th:text="${orderItem.item.price}" class="align-middle text-right"></td>
+      <td th:text="${#numbers.formatDecimal(orderItem.item.price * orderItem.volume, 1, 2)}" class="align-middle text-right"></td>
+    </tr>
+    <tr>
+      <td colspan="4" class="text-right align-middle font-weight-bold text-right">Total Price:</td>
+      <td class="align-middle font-weight-bold text-right" th:text="${#numbers.formatDecimal(order.totalPrice, 1, 2)}"></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</html>

@@ -4,19 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import webemex.eshop.model.AppUser;
-import webemex.eshop.model.CartItem;
-import webemex.eshop.model.Item;
-import webemex.eshop.model.OrderItem;
-import webemex.eshop.service.AppUserService;
-import webemex.eshop.service.CartItemService;
-import webemex.eshop.service.ItemService;
-import webemex.eshop.service.OrderItemService;
+import webemex.eshop.model.*;
+import webemex.eshop.service.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class EshopController {
@@ -34,6 +31,9 @@ public class EshopController {
     public EshopController(OrderItemService orderItemService) {
         this.orderItemService = orderItemService;
     }
+
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -279,18 +279,64 @@ public class EshopController {
     @GetMapping("/place-order")
     public String placeOrder() {
         AppUser appUser = appUserService.getAuthenticatedUser();
-
-        // Move items from cart to order
         LocalDateTime dateTime = LocalDateTime.now();
+
+//        Create a new order
+        Order order = new Order();
+        order.setDateTime(dateTime);
+        order.setAppUser(appUser);
+        orderService.saveOrder(order);
+
+        double totalPrice = 0;
+
+//        Move items from cart to order
         List<CartItem> allCartItems = cartItemService.findAllCartItems();
+
         for (CartItem cartItem : allCartItems) {
             if (cartItem.getAppUser() == appUser) {
+//                Create a new orderItem
+                OrderItem orderItem = new OrderItem(cartItem);
+                orderItem.setOrder(order);
+                orderItemService.saveOrderItem(orderItem);
+
+//                Sum up total order price
+                totalPrice += cartItem.getItem().getPrice() * cartItem.getVolume();
+
+//                Delete the item from cart
                 cartItemService.deleteItemById(cartItem.getId());
-                orderItemService.saveOrder(new OrderItem(cartItem, dateTime));
             }
         }
 
+//        Save order
+        order.setTotalPrice(totalPrice);
+        orderService.saveOrder(order);
+
         return "order-placed";
+    }
+
+    @GetMapping("/my-orders")
+    public String showOrders(Model model) {
+        AppUser appUser = appUserService.getAuthenticatedUser();
+
+//        Find all user's orders
+        List<Order> allOrders = orderService.findAllOrders();
+        List<Order> userOrders = new ArrayList<>();
+        for (Order order : allOrders) {
+            if (order.getAppUser() == appUser) {
+                userOrders.add(order);
+            }
+        }
+
+        model.addAttribute("appUser", appUser);
+        model.addAttribute("userOrders" , userOrders);
+        return "my-orders";
+    }
+
+    @GetMapping("/openOrder/{idUserOrder}")
+    public String openOrder(@PathVariable Long idUserOrder, Model model) {
+        Order order = orderService.findOrderById(idUserOrder);
+        model.addAttribute("order", order);
+        return "order";
     }
 
 //    Admin - edit database
@@ -299,6 +345,4 @@ public class EshopController {
         model.addAttribute("allItems", itemService.findAllItems());
         return "admin-edit-database";
     }
-
-
 }
