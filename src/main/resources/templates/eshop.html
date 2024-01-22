@@ -16,7 +16,7 @@
     </form>
   </div>
 
-  <table class="table table-bordered col-12">
+  <table class="table col-12">
     <thread>
       <tr>
         <th>Product code</th>
@@ -29,13 +29,13 @@
 
     <tbody>
     <tr th:each="item:${allItems}" th:if="${item.volume > 0}">
-      <td th:text="${item.productCode}"></td>
-      <td th:text="${item.productName}"></td>
-      <td th:text="${item.volume}"></td>
-      <td th:text="${item.price}"></td>
-      <td>
+      <td th:text="${item.productCode}" class="align-middle"></td>
+      <td th:text="${item.productName}" class="align-middle"></td>
+      <td th:text="${item.volume}" class="align-middle"></td>
+      <td th:text="${item.price}" class="align-middle"></td>
+      <td class="align-middle">
         <form th:action="@{/addToCart/{idItem}(idItem=${item.id})}" method="post" class="d-flex">
-          <input name="enteredVolume" type="number" min="1" step="1" value="1" class="form-control col-2 mr-3"/>
+          <input name="enteredVolume" type="number" min="1" step="1" value="1" th:max="${item.volume}" class="form-control col-3 mr-3"/>
           <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
         </form>
       </td>

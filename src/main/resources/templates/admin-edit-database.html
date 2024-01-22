@@ -27,11 +27,11 @@
 
     <tbody>
     <tr th:each="item:${allItems}">
-      <td th:text="${item.productCode}"></td>
-      <td th:text="${item.productName}"></td>
-      <td th:text="${item.volume}"></td>
-      <td th:text="${item.price}"></td>
-      <td>
+      <td th:text="${item.productCode}" class="align-middle"></td>
+      <td th:text="${item.productName}" class="align-middle"></td>
+      <td th:text="${item.volume}" class="align-middle"></td>
+      <td th:text="${item.price}" class="align-middle"></td>
+      <td class="align-middle">
         <a th:href="@{/edit-item/{idItem}(idItem=${item.id})}" class="btn btn-primary btn-sm">Edit</a>
         <a href="#" th:onclick="'removeItem(' + ${item.id} + ');'" class="btn btn-primary btn-sm">Remove</a>
       </td>

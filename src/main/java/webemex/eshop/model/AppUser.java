@@ -24,6 +24,12 @@ public class AppUser {
     )
     private List<CartItem> cartItems;
 
+    @OneToMany(
+            mappedBy="appUser", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private List<OrderItem> orderItems;
+
     public static String hashPassword(String password) {
         String salt = BCrypt.gensalt(12);
         String hashedPassword = BCrypt.hashpw(password, salt);

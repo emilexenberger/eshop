@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().
                 antMatchers("/", "/login", "/create-user").permitAll()
                 .antMatchers("/admin-edit-database", "/save-item", "/edit-item", "/remove-item", "/remove-item/{idItem}", "/create-item").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/eshop", "/user-name").authenticated()
+                .antMatchers("/eshop", "/user-name", "/cart").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")

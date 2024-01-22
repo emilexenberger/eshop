@@ -20,6 +20,12 @@ public class Item {
     )
     private List<CartItem> cartItems;
 
+    @OneToMany(
+            mappedBy="item", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private List<OrderItem> orderItems;
+
     public void setId(Long id) {
         this.id = id;
     }

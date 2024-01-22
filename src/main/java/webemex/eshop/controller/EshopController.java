@@ -1,23 +1,22 @@
 package webemex.eshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import webemex.eshop.model.AppUser;
 import webemex.eshop.model.CartItem;
 import webemex.eshop.model.Item;
-import webemex.eshop.repository.CartItemRepository;
+import webemex.eshop.model.OrderItem;
 import webemex.eshop.service.AppUserService;
 import webemex.eshop.service.CartItemService;
 import webemex.eshop.service.ItemService;
+import webemex.eshop.service.OrderItemService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class EshopController {
@@ -29,6 +28,12 @@ public class EshopController {
 
     @Autowired
     CartItemService cartItemService;
+
+    private final OrderItemService orderItemService;
+
+    public EshopController(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
+    }
 
     @GetMapping("/")
     public String index(Model model) {
@@ -211,6 +216,13 @@ public class EshopController {
             }
         }
 
+//        Total price
+        double totalPrice = 0;
+        for (CartItem userCartItem : userCartItems) {
+            totalPrice += userCartItem.getItem().getPrice() * userCartItem.getVolume();
+        }
+
+        model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("userCartItems" , userCartItems);
         return "cart";
     }
@@ -220,8 +232,12 @@ public class EshopController {
 //        Change volume in the table cart_item
         CartItem cartItem = cartItemService.findItemById(idCartItem);
         int itemDiff = cartItem.getVolume() - enteredVolume;
-        cartItem.setVolume(enteredVolume);
-        cartItemService.saveItem(cartItem);
+        if (enteredVolume == 0) {
+            cartItemService.deleteItemById(cartItem.getId());
+        } else {
+            cartItem.setVolume(enteredVolume);
+            cartItemService.saveItem(cartItem);
+        }
 
 //        Consider the change in volumes and in the table item
         List<Item> allItems = itemService.findAllItems();
@@ -235,9 +251,51 @@ public class EshopController {
         return "redirect:/cart";
     }
 
+    @GetMapping("/checkout")
+    public String buy(Model model) {
+        AppUser appUser = appUserService.getAuthenticatedUser();
+
+//        Find all user cart items
+        List<CartItem> allCartItems = cartItemService.findAllCartItems();
+        List<CartItem> userCartItems = new ArrayList<>();
+        for (CartItem cartItem : allCartItems) {
+            if (cartItem.getAppUser() == appUser) {
+                userCartItems.add(cartItem);
+            }
+        }
+
+//        Total price
+        double totalPrice = 0;
+        for (CartItem userCartItem : userCartItems) {
+            totalPrice += userCartItem.getItem().getPrice() * userCartItem.getVolume();
+        }
+
+        model.addAttribute("appUser", appUser);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("userCartItems" , userCartItems);
+        return "checkout";
+    }
+
+    @GetMapping("/place-order")
+    public String placeOrder() {
+        AppUser appUser = appUserService.getAuthenticatedUser();
+
+        // Move items from cart to order
+        LocalDateTime dateTime = LocalDateTime.now();
+        List<CartItem> allCartItems = cartItemService.findAllCartItems();
+        for (CartItem cartItem : allCartItems) {
+            if (cartItem.getAppUser() == appUser) {
+                cartItemService.deleteItemById(cartItem.getId());
+                orderItemService.saveOrder(new OrderItem(cartItem, dateTime));
+            }
+        }
+
+        return "order-placed";
+    }
+
 //    Admin - edit database
     @GetMapping("/admin-edit-database")
-    public String adminEshop(Model model) {
+    public String adminEditDatabase(Model model) {
         model.addAttribute("allItems", itemService.findAllItems());
         return "admin-edit-database";
     }

@@ -9,6 +9,7 @@
   <h1>Cart</h1>
 
   <div class="d-flex flex-row">
+    <a href="/checkout" alt="Buy" class="btn btn-primary btn-sm mb-1 mr-1">Checkout</a><br />
     <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
     <a href="/eshop" alt="Eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
     <form th:action="@{/logout}" method="post">
@@ -16,32 +17,45 @@
     </form>
   </div>
 
-  <table class="table table-bordered col-12">
-    <thread>
-      <tr>
-        <th>Product code</th>
-        <th>Product name</th>
-        <th>Volume</th>
-        <th>Price</th>
-        <th>Actions</th>
-      </tr>
-    </thread>
+  <div th:if="${userCartItems.isEmpty()}">
+    <p>Cart is empty</p>
+  </div>
 
-    <tbody>
-    <tr th:each="userCartItem : ${userCartItems}">
-      <td th:text="${userCartItem.item.productCode}"></td>
-      <td th:text="${userCartItem.item.productName}"></td>
-      <td th:text="${userCartItem.volume}"></td>
-      <td th:text="${userCartItem.item.price}"></td>
-      <td>
-        <form th:action="@{/editCart/{idCartItem}(idCartItem=${userCartItem.id})}" th:object="${userCartItem}" method="post" class="d-flex">
-          <input name="enteredVolume" type="number" min="1" step="1" th:max="${userCartItem.volume + userCartItem.item.volume}" th:value="${userCartItem.volume}" class="form-control col-3 mr-3"/>
-          <button type="submit" class="btn btn-primary btn-sm">Apply</button>
-        </form>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div th:unless="${userCartItems.isEmpty()}">
+    <table class="table col-12">
+      <thread>
+        <tr>
+          <th class="text-center">Product code</th>
+          <th>Product name</th>
+          <th class="text-center">Volume</th>
+          <th class="text-right">Unit price</th>
+          <th class="text-right">Total price</th>
+          <th>Actions</th>
+        </tr>
+      </thread>
+
+      <tbody>
+      <tr th:each="userCartItem : ${userCartItems}">
+        <td th:text="${userCartItem.item.productCode}" class="align-middle text-center"></td>
+        <td th:text="${userCartItem.item.productName}" class="align-middle"></td>
+        <td th:text="${userCartItem.volume}" class="align-middle text-center"></td>
+        <td th:text="${userCartItem.item.price}" class="align-middle text-right"></td>
+        <td th:text="${#numbers.formatDecimal(userCartItem.item.price * userCartItem.volume, 1, 2)}" class="align-middle text-right"></td>
+        <td class="align-middle">
+          <form th:action="@{/editCart/{idCartItem}(idCartItem=${userCartItem.id})}" th:object="${userCartItem}" method="post" class="d-flex">
+            <input name="enteredVolume" type="number" min="0" step="1" th:max="${userCartItem.volume + userCartItem.item.volume}" th:value="${userCartItem.volume}" class="form-control col-3 mr-3 text-right"/>
+            <button type="submit" class="btn btn-primary btn-sm">Change volume</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="text-right align-middle font-weight-bold text-right">Total Price:</td>
+        <td class="align-middle font-weight-bold text-right" th:text="${#numbers.formatDecimal(totalPrice, 1, 2)}"></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+    <div>
 </div>
 
 </html>
