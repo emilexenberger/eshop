@@ -11,6 +11,7 @@
     <div class="d-flex flex-row">
         <a th:if="${roleAdmin}" href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
         <a th:if="${userLogged}" href="/eshop" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a>
+        <a th:if="${userLogged}" href="/my-orders" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">My orders</a>
         <a th:if="${userLogged}" href="/user" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Profile</a>
         <br />
 

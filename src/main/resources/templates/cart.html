@@ -9,7 +9,7 @@
   <h1>Cart</h1>
 
   <div class="d-flex flex-row">
-    <a href="/checkout" alt="Buy" class="btn btn-primary btn-sm mb-1 mr-1">Checkout</a><br />
+    <a th:unless="${userCartItems.isEmpty()}" href="/checkout" alt="Buy" class="btn btn-primary btn-sm mb-1 mr-1">Checkout</a><br />
     <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
     <a href="/eshop" alt="Eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
     <form th:action="@{/logout}" method="post">
