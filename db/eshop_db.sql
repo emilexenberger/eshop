@@ -41,7 +41,7 @@ CREATE TABLE `app_user` (
 
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES ('d828ea79-c8f1-11ee-b215-309c23b0824d','user','user','user','$2a$12$wmjut..qJp7XZbi2q5veiOHcCou8uxdLVqo7I1NKlWWn1kkadCy9i','ROLE_ADMIN'),('d828f0b1-c8f1-11ee-b215-309c23b0824d','admin','admin','admin','$2a$12$E1aEveSxNJ75jJ1CR.TGnOUTPQ1qOfffy08fre9Purym2y2H5eVUG','ROLE_USER');
+INSERT INTO `app_user` VALUES ('d828ea79-c8f1-11ee-b215-309c23b0824d','user','user','user','$2a$12$wmjut..qJp7XZbi2q5veiOHcCou8uxdLVqo7I1NKlWWn1kkadCy9i','ROLE_USER'),('d828f0b1-c8f1-11ee-b215-309c23b0824d','admin','admin','admin','$2a$12$E1aEveSxNJ75jJ1CR.TGnOUTPQ1qOfffy08fre9Purym2y2H5eVUG','ROLE_ADMIN');
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-11 16:39:09
+-- Dump completed on 2024-02-11 16:45:18
