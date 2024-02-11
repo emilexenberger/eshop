@@ -1,6 +1,7 @@
 package webemex.eshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -93,6 +94,7 @@ public class EshopController {
     }
 
     @PostMapping("/save-edited-user")
+    @PreAuthorize("isAuthenticated()")
     public String saveEditedAppUser(@ModelAttribute("appUser") AppUser appUser,
                               @RequestParam String password,
                               @RequestParam String confirmPassword,
@@ -113,12 +115,14 @@ public class EshopController {
     }
 
     @GetMapping("/user-edited")
+    @PreAuthorize("isAuthenticated()")
     public String showUserEdited() {
         return "user-edited";
     }
 
 
     @GetMapping("/user")
+    @PreAuthorize("isAuthenticated()")
     public String getUser(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
         model.addAttribute("appUser", appUser);
@@ -126,6 +130,7 @@ public class EshopController {
     }
 
     @GetMapping("/edit-user")
+    @PreAuthorize("isAuthenticated()")
     public String editUser(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
         model.addAttribute("appUser", appUser);
@@ -134,6 +139,7 @@ public class EshopController {
 
 //    Item
     @GetMapping("/create-item")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String createItem(Model model) {
         Item item = new Item();
         model.addAttribute("item", item);
@@ -141,12 +147,14 @@ public class EshopController {
     }
 
     @PostMapping("/save-item")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String saveItem(@ModelAttribute("item") Item item) {
         itemService.saveItem(item);
         return "redirect:/admin-edit-database";
     }
 
     @GetMapping("/edit-item/{idItem}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String editItem(@PathVariable Long idItem, Model model) {
         Item item = itemService.findItemById(idItem);
         model.addAttribute("item", item);
@@ -154,18 +162,21 @@ public class EshopController {
     }
 
     @GetMapping("/remove-item/{idItem}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void removeItem(@PathVariable Long idItem) {
         itemService.deleteItemById(idItem);
     }
 
 //    Eshop
     @GetMapping("/eshop")
+    @PreAuthorize("isAuthenticated()")
     public String eshop(Model model) {
         model.addAttribute("allItems", itemService.findAllItems());
         return "eshop";
     }
 
     @PostMapping("/addToCart/{idItem}")
+    @PreAuthorize("isAuthenticated()")
     public String addToCard(@PathVariable Long idItem, @RequestParam("enteredVolume") int enteredVolume) {
 //        Create empty cartItem
         CartItem cartItem = new CartItem();
@@ -204,6 +215,7 @@ public class EshopController {
     }
 
     @GetMapping("/cart")
+    @PreAuthorize("isAuthenticated()")
     public String showCart(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
 
@@ -228,6 +240,7 @@ public class EshopController {
     }
 
     @PostMapping("/editCart/{idCartItem}")
+    @PreAuthorize("isAuthenticated()")
     public String editCartItem(@PathVariable Long idCartItem, @RequestParam("enteredVolume") int enteredVolume) {
 //        Change volume in the table cart_item
         CartItem cartItem = cartItemService.findItemById(idCartItem);
@@ -252,6 +265,7 @@ public class EshopController {
     }
 
     @GetMapping("/checkout")
+    @PreAuthorize("isAuthenticated()")
     public String buy(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
 
@@ -277,6 +291,7 @@ public class EshopController {
     }
 
     @GetMapping("/place-order")
+    @PreAuthorize("isAuthenticated()")
     public String placeOrder() {
         AppUser appUser = appUserService.getAuthenticatedUser();
         LocalDateTime dateTime = LocalDateTime.now();
@@ -315,6 +330,7 @@ public class EshopController {
     }
 
     @GetMapping("/my-orders")
+    @PreAuthorize("isAuthenticated()")
     public String showOrders(Model model) {
         AppUser appUser = appUserService.getAuthenticatedUser();
 
@@ -333,6 +349,7 @@ public class EshopController {
     }
 
     @GetMapping("/openOrder/{idUserOrder}")
+    @PreAuthorize("isAuthenticated()")
     public String openOrder(@PathVariable Long idUserOrder, Model model) {
         Order order = orderService.findOrderById(idUserOrder);
         model.addAttribute("order", order);
@@ -341,6 +358,7 @@ public class EshopController {
 
 //    Admin - edit database
     @GetMapping("/admin-edit-database")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String adminEditDatabase(Model model) {
         model.addAttribute("allItems", itemService.findAllItems());
         return "admin-edit-database";

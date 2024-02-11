@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -36,10 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().
-                antMatchers("/", "/login", "/create-user", "/save-created-user", "/user-created").permitAll()
-                .antMatchers("/create-item", "/save-item", "/edit-item/{idItem}", "/remove-item/{idItem}", "/admin-edit-database").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/save-edited-user", "/user-edited", "/user", "/edit-user", "/eshop", "/addToCart/{idItem}", "/cart", "/editCart/{idCartItem}", "/checkout", "/place-order", "/my-orders", "/openOrder/{idUserOrder}").authenticated()
+        http.authorizeRequests()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
