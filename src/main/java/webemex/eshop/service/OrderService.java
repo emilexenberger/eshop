@@ -7,6 +7,7 @@ import webemex.eshop.repository.OrderItemRepository;
 import webemex.eshop.repository.OrderRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -24,11 +25,11 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order findOrderById(Long id) {
+    public Order findOrderById(UUID id) {
         return orderRepository.findById(id).get();
     }
 
-    public void deleteOrderById(Long id) {
+    public void deleteOrderById(UUID id) {
         orderRepository.deleteById(id);
     }
 }

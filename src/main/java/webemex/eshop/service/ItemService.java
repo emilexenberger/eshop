@@ -6,6 +6,7 @@ import webemex.eshop.model.Item;
 import webemex.eshop.repository.ItemRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ItemService {
@@ -23,11 +24,11 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public Item findItemById(Long id) {
+    public Item findItemById(UUID id) {
         return itemRepository.findById(id).get();
     }
 
-    public void deleteItemById(Long id) {
+    public void deleteItemById(UUID id) {
         itemRepository.deleteById(id);
     }
 }

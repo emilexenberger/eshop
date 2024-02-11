@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -155,7 +156,7 @@ public class EshopController {
 
     @GetMapping("/edit-item/{idItem}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String editItem(@PathVariable Long idItem, Model model) {
+    public String editItem(@PathVariable UUID idItem, Model model) {
         Item item = itemService.findItemById(idItem);
         model.addAttribute("item", item);
         return "edit-item";
@@ -163,7 +164,7 @@ public class EshopController {
 
     @GetMapping("/remove-item/{idItem}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public void removeItem(@PathVariable Long idItem) {
+    public void removeItem(@PathVariable UUID idItem) {
         itemService.deleteItemById(idItem);
     }
 
@@ -177,7 +178,7 @@ public class EshopController {
 
     @PostMapping("/addToCart/{idItem}")
     @PreAuthorize("isAuthenticated()")
-    public String addToCard(@PathVariable Long idItem, @RequestParam("enteredVolume") int enteredVolume) {
+    public String addToCard(@PathVariable UUID idItem, @RequestParam("enteredVolume") int enteredVolume) {
 //        Create empty cartItem
         CartItem cartItem = new CartItem();
 
@@ -241,7 +242,7 @@ public class EshopController {
 
     @PostMapping("/editCart/{idCartItem}")
     @PreAuthorize("isAuthenticated()")
-    public String editCartItem(@PathVariable Long idCartItem, @RequestParam("enteredVolume") int enteredVolume) {
+    public String editCartItem(@PathVariable UUID idCartItem, @RequestParam("enteredVolume") int enteredVolume) {
 //        Change volume in the table cart_item
         CartItem cartItem = cartItemService.findItemById(idCartItem);
         int itemDiff = cartItem.getVolume() - enteredVolume;
@@ -350,7 +351,7 @@ public class EshopController {
 
     @GetMapping("/openOrder/{idUserOrder}")
     @PreAuthorize("isAuthenticated()")
-    public String openOrder(@PathVariable Long idUserOrder, Model model) {
+    public String openOrder(@PathVariable UUID idUserOrder, Model model) {
         Order order = orderService.findOrderById(idUserOrder);
         model.addAttribute("order", order);
         return "order";
