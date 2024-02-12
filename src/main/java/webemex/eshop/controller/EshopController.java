@@ -28,11 +28,8 @@ public class EshopController {
     @Autowired
     CartItemService cartItemService;
 
-    private final OrderItemService orderItemService;
-
-    public EshopController(OrderItemService orderItemService) {
-        this.orderItemService = orderItemService;
-    }
+    @Autowired
+    OrderItemService orderItemService;
 
     @Autowired
     OrderService orderService;
