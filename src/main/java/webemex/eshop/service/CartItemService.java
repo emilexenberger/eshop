@@ -1,5 +1,6 @@
 package webemex.eshop.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webemex.eshop.model.CartItem;
 import webemex.eshop.model.Item;
@@ -10,11 +11,8 @@ import java.util.UUID;
 
 @Service
 public class CartItemService {
-    private final CartItemRepository cartItemRepository;
-    
-    public CartItemService(CartItemRepository cartItemRepository) {
-        this.cartItemRepository = cartItemRepository;
-    }
+    @Autowired
+    CartItemRepository cartItemRepository;
 
     public void saveItem(CartItem cartItem) {
         cartItemRepository.save(cartItem);

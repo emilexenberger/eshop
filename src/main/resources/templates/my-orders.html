@@ -11,7 +11,7 @@
 
   <div class="d-flex flex-row">
     <a href="/" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
-    <a href="/eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
+    <a href="/eshop/" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
     <form th:action="@{/logout}" method="post">
       <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
     </form>
@@ -47,7 +47,7 @@
       <td th:text="${userOrder.totalPrice}" class="align-middle text-center"></td>
 
       <td class="align-middle">
-        <a th:href="@{/openOrder/{idUserOrder}(idUserOrder=${userOrder.id})}" class="btn btn-primary btn-sm">Open order</a>
+        <a th:href="@{/order/open/{idUserOrder}(idUserOrder=${userOrder.id})}" class="btn btn-primary btn-sm">Open order</a>
       </td>
 
     </tr>

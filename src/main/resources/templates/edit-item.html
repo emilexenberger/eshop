@@ -4,17 +4,12 @@
 <head>
   <title>Edit item</title>
   <script th:src="@{/js/alerts.js}" defer="defer"></script>
-
-<!--  TODO: Resolve warning to make style.css work
-WARN 16396 --- [nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException:
-Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "styles.css"]
--->
 </head>
 
 <div layout:fragment="content">
   <h1>Edit item</h1>
 
-  <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return alertItemEdited()">
+  <form method="POST" th:action="@{/item/save}" th:object="${item}" onsubmit="return alertItemEdited()">
     <input th:field="*{id}" type="hidden" />
 
     <label>Product name </label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />

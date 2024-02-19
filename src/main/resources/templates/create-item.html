@@ -9,7 +9,7 @@
 <div layout:fragment="content">
   <h1>Create a new item</h1>
 
-  <form method="POST" th:action="@{/save-item}" th:object="${item}" onsubmit="return alertItemCreated()">
+  <form method="POST" th:action="@{/item/save}" th:object="${item}" onsubmit="return alertItemCreated()">
     <label>Product name</label> <input th:field="*{productName}" type="text" class="form-control col-4" /><br />
 
     <label>Product code</label> <input th:field="*{productCode}" type="number" class="form-control col-4" /><br />

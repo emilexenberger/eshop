@@ -9,14 +9,14 @@
     <h1>Welcome<span th:if="${userLogged}" th:text="', ' + ${appUser.name}"></span>!</h1>
 
     <div class="d-flex flex-row">
-        <a th:if="${roleAdmin}" href="/admin-edit-database" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
-        <a th:if="${userLogged}" href="/eshop" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a>
-        <a th:if="${userLogged}" href="/my-orders" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">My orders</a>
-        <a th:if="${userLogged}" href="/user" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Profile</a>
+        <a th:if="${roleAdmin}" href="/item/admin" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - Edit database</a>
+        <a th:if="${userLogged}" href="/eshop/" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a>
+        <a th:if="${userLogged}" href="/order/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">My orders</a>
+        <a th:if="${userLogged}" href="/user/" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Profile</a>
         <br />
 
-        <a th:unless="${userLogged}" href="/login" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Log In</a>
-        <a th:unless="${userLogged}" href="/create-user" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Create a new account</a>
+        <a th:unless="${userLogged}" href="/user/login" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Log In</a>
+        <a th:unless="${userLogged}" href="/user/create" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Create a new account</a>
 
         <form th:if="${userLogged}" th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>

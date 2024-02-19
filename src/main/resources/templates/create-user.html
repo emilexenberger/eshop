@@ -9,7 +9,7 @@
 <div layout:fragment="content">
   <h1>Create a new account</h1>
 
-  <form method="POST" th:action="@{/save-created-user}" th:object="${appUser}">
+  <form method="POST" th:action="@{/user/save-created}" th:object="${appUser}">
     <label>Username</label> <input th:field="*{username}" type="text" class="form-control col-4" />
     <p th:if="${userExists}" class="text-danger">Username already exists</p>
     <br th:unless="${userExists}" />

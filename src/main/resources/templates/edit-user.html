@@ -9,7 +9,7 @@
 <div layout:fragment="content">
   <h1>Edit profile</h1>
 
-  <form method="POST" th:action="@{/save-edited-user}" th:object="${appUser}">
+  <form method="POST" th:action="@{/user/save-edited}" th:object="${appUser}">
     <input th:field="*{id}" type="hidden" />
 
     <label>Username</label> <input th:field="*{username}" type="text" class="form-control col-4" />

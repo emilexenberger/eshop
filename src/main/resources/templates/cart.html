@@ -9,9 +9,9 @@
   <h1>Cart</h1>
 
   <div class="d-flex flex-row">
-    <a th:unless="${userCartItems.isEmpty()}" href="/checkout" alt="Buy" class="btn btn-primary btn-sm mb-1 mr-1">Checkout</a><br />
+    <a th:unless="${userCartItems.isEmpty()}" href="/cart/checkout" alt="Buy" class="btn btn-primary btn-sm mb-1 mr-1">Checkout</a><br />
     <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
-    <a href="/eshop" alt="Eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
+    <a href="/eshop/" alt="Eshop" class="btn btn-primary btn-sm mb-1 mr-1">Eshop</a><br />
     <form th:action="@{/logout}" method="post">
       <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
     </form>
@@ -42,7 +42,7 @@
         <td th:text="${userCartItem.item.price}" class="align-middle text-right"></td>
         <td th:text="${#numbers.formatDecimal(userCartItem.item.price * userCartItem.volume, 1, 2)}" class="align-middle text-right"></td>
         <td class="align-middle">
-          <form th:action="@{/editCart/{idCartItem}(idCartItem=${userCartItem.id})}" th:object="${userCartItem}" method="post" class="d-flex">
+          <form th:action="@{/cart/edit/{idCartItem}(idCartItem=${userCartItem.id})}" th:object="${userCartItem}" method="post" class="d-flex">
             <input name="enteredVolume" type="number" min="0" step="1" th:max="${userCartItem.volume + userCartItem.item.volume}" th:value="${userCartItem.volume}" class="form-control col-3 mr-3 text-right"/>
             <button type="submit" class="btn btn-primary btn-sm">Change volume</button>
           </form>

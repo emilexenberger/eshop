@@ -2,7 +2,7 @@ function removeItem(itemId) {
     alert('Item has been added to your cart');
 
 //    if (confirmation) {
-        var removeUrl = '/add-to-cart/' + itemId + ;
+        var removeUrl = '/cart/add/' + itemId + ;
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', removeUrl, true);

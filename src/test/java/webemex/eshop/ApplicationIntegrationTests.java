@@ -16,6 +16,7 @@ class ApplicationIntegrationTests {
     @Autowired
     private TestRestTemplate restTemplate;
 
+//    TODO: Urobit komplexny Integration test. -> Vytvor usera a skus sa s nim prihlasit
     @Test
     void testIndexPage() {
         ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);

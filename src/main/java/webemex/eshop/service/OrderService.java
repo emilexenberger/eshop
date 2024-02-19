@@ -1,5 +1,6 @@
 package webemex.eshop.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webemex.eshop.model.Order;
 import webemex.eshop.model.OrderItem;
@@ -11,11 +12,8 @@ import java.util.UUID;
 
 @Service
 public class OrderService {
-    private final OrderRepository orderRepository;
-
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+    @Autowired
+    OrderRepository orderRepository;
 
     public void saveOrder(Order order) {
         orderRepository.save(order);

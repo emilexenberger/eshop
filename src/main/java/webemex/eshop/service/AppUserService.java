@@ -3,6 +3,7 @@ package webemex.eshop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import webemex.eshop.model.AppUser;
 import webemex.eshop.model.Item;
@@ -23,6 +24,7 @@ public class AppUserService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         AppUser appUser = userRepository.findByUsername(username);
+//        AppUser appUser = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
         return appUser;
     }
 

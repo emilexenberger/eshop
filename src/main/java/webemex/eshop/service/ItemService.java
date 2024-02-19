@@ -10,11 +10,15 @@ import java.util.UUID;
 
 @Service
 public class ItemService {
-    private final ItemRepository itemRepository;
+    @Autowired
+    ItemRepository itemRepository;
 
-    public ItemService(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
+//    TODO: Daj do poznamok a odstran
+//    private final ItemRepository itemRepository;
+//
+//    public ItemService(ItemRepository itemRepository) {
+//        this.itemRepository = itemRepository;
+//    }
 
     public void saveItem(Item item) {
         itemRepository.save(item);

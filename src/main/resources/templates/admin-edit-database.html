@@ -8,7 +8,7 @@
 
 <div layout:fragment="content">
   <div class="d-flex flex-row">
-    <a href="/create-item" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - create a new item</a>
+    <a href="/item/create" type="button" class="btn btn-primary btn-sm mb-1 mr-1">Admin - create a new item</a>
     <a href="/" alt="Home" class="btn btn-primary btn-sm mb-1 mr-1">Home</a><br />
     <form th:action="@{/logout}" method="post">
       <input type="submit" value="Log Out" class="btn btn-primary btn-sm mb-1 mr-1"/>
@@ -32,8 +32,8 @@
       <td th:text="${item.volume}" class="align-middle"></td>
       <td th:text="${item.price}" class="align-middle"></td>
       <td class="align-middle">
-        <a th:href="@{/edit-item/{idItem}(idItem=${item.id})}" class="btn btn-primary btn-sm">Edit</a>
-        <a href="#" th:onclick="'removeItem(' + ${item.id} + ');'" class="btn btn-primary btn-sm">Remove</a>
+        <a th:href="@{/item/edit/{idItem}(idItem=${item.id})}" class="btn btn-primary btn-sm">Edit</a>
+        <a href="#" th:attr="item-id=${item.id}" class="btn btn-primary btn-sm" onclick="removeItem(this.getAttribute('item-id'));">Remove</a>
       </td>
     </tr>
     </tbody>
